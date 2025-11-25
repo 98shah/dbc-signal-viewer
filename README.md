@@ -1,55 +1,44 @@
 # DBC Signal Viewer
 
-WPF application for viewing CAN DBC files with plugin-based signal decoding.
+A desktop application for viewing and exploring CAN DBC files.
 
-## Projects
+## Features
 
-| Project | Type | Description |
-|---------|------|-------------|
-| DbcSignalViewer | WPF App | Main host application |
-| DbcSignalViewer.Contracts | Class Library | Shared interfaces for plugins |
-| DbcSignalViewer.Plugins.J1939 | Class Library | J1939 SPN decoder plugin |
+- Load and parse DBC files
+- Browse messages and signals in a tree view
+- View signal details (start bit, length, factor, offset, unit, range)
+- Extensible signal decoding via plugins
+- J1939 SPN decoder included
+
+## Screenshot
+
+<!-- Screenshot will be added once UI is complete -->
+
+## Usage
+
+1. Open the application
+2. File → Open DBC
+3. Browse messages in the left panel
+4. Click a signal to see details
 
 ## Requirements
 
-- .NET 8.0 SDK
-- Windows (WPF)
-- Visual Studio 2022 (recommended)
+- Windows 10/11
+- .NET 8.0 Runtime
 
-## Build
+## Building from Source
 
 ```bash
-dotnet build DbcSignalViewer.sln
+git clone https://github.com/username/dbc-signal-viewer.git
+cd dbc-signal-viewer
+dotnet build
 ```
 
 Or open `DbcSignalViewer.sln` in Visual Studio and build.
 
-## Architecture
+## Creating Plugins
 
-This project demonstrates plugin architecture in WPF:
-
-```
-DbcSignalViewer.Contracts    (Shared interfaces)
-        │
-        ├──────────────────────────┐
-        │                          │
-        ▼                          ▼
-DbcSignalViewer              DbcSignalViewer.Plugins.J1939
-(Host WPF App)               (Plugin - loaded at runtime)
-```
-
-- Host discovers plugins at runtime from the `plugins/` folder
-- Plugins implement `ISignalDecoder` from Contracts
-- Host and plugins communicate only through shared interfaces
-- New plugins can be added without modifying the host
-
-## NuGet Packages
-
-| Package | Project | Purpose |
-|---------|---------|---------|
-| CommunityToolkit.Mvvm | Host | MVVM framework |
-| Microsoft.Extensions.DependencyInjection | Host | Dependency injection |
-| DbcParserLib | Host | DBC file parsing |
+See [ARCHITECTURE.md](ARCHITECTURE.md) for technical details on the plugin system.
 
 ## License
 
